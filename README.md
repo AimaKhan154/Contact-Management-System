@@ -2,8 +2,6 @@
 
 A full-stack web application to manage personal/professional contacts with authentication, search, pagination, profile management, import/export, logging, testing, and code-quality tooling.
 
----
-
 ## 1) Project Overview
 
 This system allows users to:
