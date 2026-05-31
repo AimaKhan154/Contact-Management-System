@@ -4,6 +4,9 @@ A full-stack web application to manage personal/professional contacts with authe
 
 ## 1) Project Overview
 
+
+
+
 This system allows users to:
 
 - Register using **email or phone**
