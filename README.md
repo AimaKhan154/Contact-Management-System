@@ -243,7 +243,7 @@ contact managment system/
     src/pages/                  # dashboard, login, register, profile, contact details
     src/services/               # axios services
     src/context/                # auth context
-  schema.sql                    # SQL schema reference
+  schema.sql                    # SQL schema 
   sonar-project.properties      # SonarQube configuration
   .env                          # Environment variable template
 ```
