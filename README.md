@@ -92,3 +92,162 @@ Each contact stores:
 - React Router
 - Lucide React Icons
 
+### Dev/Quality Tools
+
+- SonarQube (via Maven scanner + `sonar-project.properties`)
+- Git
+
+---
+
+## 3) High-Level Architecture
+
+- **Frontend (`frontend`)**
+  - Shows login/register screens
+  - Uses JWT token for protected API calls
+  - Dashboard handles contacts CRUD + search + pagination + import/export
+  - Profile page handles password change and logout
+  - Contact details page shows complete contact profile
+
+- **Backend (`backend`)**
+  - REST APIs under `/api/auth` and `/api/contacts`
+  - Auth flow returns JWT token on login
+  - JWT filter validates token on protected requests
+  - Service layer contains business logic
+  - Repository layer handles DB queries through JPA
+  - Global exception handler provides clean error messages
+
+---
+
+**## 4) Important API Endpoints
+
+### Auth
+
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+- `POST /api/auth/change-password`
+
+### Contacts
+
+- `GET /api/contacts` (paginated + searchable)
+- `GET /api/contacts/{id}`
+- `POST /api/contacts`
+- `PUT /api/contacts/{id}`
+- `DELETE /api/contacts/{id}`
+- `GET /api/contacts/export`
+- `POST /api/contacts/import`
+
+---
+
+## 5) How Authentication Works
+
+1. User logs in with email/phone + password.
+2. Backend validates credentials and returns JWT.
+3. Frontend stores token in `localStorage`.
+4. Axios interceptor automatically sends `Authorization: Bearer <token>`.
+5. If token is invalid/expired, frontend clears session and redirects to `/login`.
+
+---
+
+## 6) Environment Variables
+
+create env 
+
+- `JWT_SECRET`
+- `SQLSERVER_URL`
+- `SQLSERVER_USERNAME`
+- `SQLSERVER_PASSWORD`
+- `DB_PASSWORD` 
+
+---
+
+## 7) How to Run (Step by Step)
+
+Open **two terminals**.
+
+### Terminal 1: Backend (SQL Server )
+
+```bat
+cd /d "C:\Users\YOUR NAME \OneDrive\Documents\contact managment system\backend"
+set SQLSERVER_URL=jdbc:sqlserver://localhost:1433;databaseName=ContactMgmtDB;encrypt=true;trustServerCertificate=true
+set SQLSERVER_USERNAME=sa
+set SQLSERVER_PASSWORD=YourStrong@Passw0rd
+set JWT_SECRET=replace_with_secure_secret
+apache-maven-3.9.6\bin\mvn.cmd spring-boot:run
+```
+
+### Terminal 2: Frontend
+
+```bat
+cd /d "C:\Users\aima khan\OneDrive\Documents\contact managment system\frontend"
+npm install
+npm run dev
+```
+
+### After Running Open in browser
+
+- Frontend: <http://localhost:5173>
+- Backend base: <http://localhost:8080/api>
+
+---
+
+## 8) Testing
+
+Backend tests include:
+
+- Service layer tests
+- Controller layer test
+- Repository/data-access layer test
+
+Run tests:
+
+```bat
+cd /d "C:\Users\YOUR NAME\OneDrive\Documents\contact managment system\backend"
+apache-maven-3.9.6\bin\mvn.cmd test
+```
+
+---
+
+## 9) SonarQube
+
+Config files:
+
+- `sonar-project.properties`
+- Sonar Maven plugin in `backend/pom.xml`
+
+Run analysis:
+
+```bat
+cd /d "C:\Users\YOUR NAME\OneDrive\Documents\contact managment system"
+backend\apache-maven-3.9.6\bin\mvn.cmd -f backend\pom.xml sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.token=YOUR_TOKEN
+```
+
+---
+
+## 10) Logging and Error Handling
+
+- Application logs are written with SLF4J/Logback.
+- Important actions and failures are logged in backend services.
+- Global exception handler converts runtime/validation errors into meaningful API responses.
+
+---
+
+## 11) Project Structure
+
+```text
+contact managment system/
+  backend/                      # Spring Boot backend
+    src/main/java/...           # controllers, services, entities, security, repositories
+    src/main/resources/         # application configs
+    src/test/java/...           # unit/integration tests
+  frontend/                     # React app
+    src/pages/                  # dashboard, login, register, profile, contact details
+    src/services/               # axios services
+    src/context/                # auth context
+  schema.sql                    # SQL schema reference
+  sonar-project.properties      # SonarQube configuration
+  .env                          # Environment variable template
+```
+
+
+
+
