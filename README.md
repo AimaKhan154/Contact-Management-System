@@ -178,7 +178,7 @@ apache-maven-3.9.6\bin\mvn.cmd spring-boot:run
 ### Terminal 2: Frontend
 
 ```bat
-cd /d "C:\Users\aima khan\OneDrive\Documents\contact managment system\frontend"
+cd /d "C:\Users\YOUR NAME\OneDrive\Documents\contact managment system\frontend"
 npm install
 npm run dev
 ```
